@@ -1,0 +1,34 @@
+﻿@model TwitterSearchDemo.Framework.TwitterPoco.TwitterResult
+@{
+    var userLink = "https://twitter.com/" + Html.Encode(Model.from_user);
+    
+}
+<div class="row">
+  <div class="span8">
+    <div class="row">
+      <div class="span8">
+        <h4><strong><a href="@userLink">@Model.from_user_name</a></strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span1">
+        <a href="@userLink" class="thumbnail">
+            <img src="@Model.profile_image_url" alt="profile image">
+        </a>
+      </div>
+      <div class="span7">      
+        <p>
+          @Model.text
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p>
+          <i class="icon-calendar"></i> @Model.created_at.ToShortDateString() 
+          | <i class="icon-share"></i> @Model.metadata.recent_retweets retweets
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

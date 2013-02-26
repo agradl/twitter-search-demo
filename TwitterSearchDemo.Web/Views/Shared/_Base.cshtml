@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="@Links.Content.bootstrap_css" rel="stylesheet">
+    <link href="@Links.Content.core_css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="@Links.Scripts.jquery_1_9_1_js"></script>
+    <script src="@Links.Scripts.bootstrap_js"></script>
+    <script src="@Links.Scripts.core_js"></script>
+</body>
+</html>

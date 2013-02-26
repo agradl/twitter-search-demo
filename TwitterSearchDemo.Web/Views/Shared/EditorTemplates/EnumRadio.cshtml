@@ -1,0 +1,15 @@
+﻿@model object
+@{
+    var values = (IEnumerable<SelectListItem>)ViewData.ModelMetadata.AdditionalValues["EnumValues"];
+    var name = ViewData.ModelMetadata.PropertyName;
+    var value = Model == null ? values.First().Value : Model.ToString();
+}
+@Html.Hidden("", value)
+<div class="btn-group" data-toggle="buttons-radio" data-toggle-name="@name">
+    @foreach (var li in values)
+    {
+        <button type="button" class="btn btn-success @(value == li.Value ? "active" : "")" value="@li.Value">@li.Text</button>    
+    }
+</div>
+
+

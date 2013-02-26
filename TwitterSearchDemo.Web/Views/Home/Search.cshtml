@@ -1,0 +1,67 @@
+﻿@using TwitterSearchDemo.Framework
+@using TwitterSearchDemo.Framework.TwitterPoco
+@using TwitterSearchDemo.Framework.Web
+@model TwitterSearchQuery
+@{
+    ViewBag.Title = "Twitter Search Demo";
+}
+
+<div class="row">
+    <div class="span6">
+        <h1>Twitter Search Demo</h1>
+    </div>    
+</div>
+<div class="container">
+    @using (Html.BeginForm(MVC.Home.SearchFor()))
+    {
+        @Html.ValidationSummary(false)
+        <div class="row" style="margin-bottom:5px;">
+            <div class="span4 pull-left">
+                @Html.EditorFor(m => m.SearchType)
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:5px;">
+            <div class="span4 pull-left">
+                @Html.EditorFor(m => m.ResultType)
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:5px;">
+            <div class="span4">
+                <div class="input-append pull-left">
+                    @Html.TextBoxFor(m => m.Query, new{style="width:400px;"})
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.Page)
+    }
+</div>
+@if (ViewBag.Results != null && ViewBag.Results.Count > 0)
+{
+    <div class="pagination">
+        <ul>
+            @if (Model.Page > 1)
+            {
+                <li>@Html.ActionLink("Prev","Search", Model.Copy(-1).ToRouteValues())</li>
+            }
+            <li><a href="#">@Model.Page</a></li>
+            <li>@Html.ActionLink("Next", "Search", Model.Copy(1).ToRouteValues())</li>       
+        </ul>
+    </div>
+    <div class="row well">
+        @foreach (TwitterResult result in ViewBag.Results)
+        {
+            @Html.DisplayFor(m => result)
+        }
+    </div>
+    <div class="pagination">
+        <ul>
+            @if (Model.Page > 1)
+            {
+                <li>@Html.ActionLink("Prev","Search", Model.Copy(-1).ToRouteValues())</li>
+            }
+            <li><a href="#">@Model.Page</a></li>
+            <li>@Html.ActionLink("Next", "Search", Model.Copy(1).ToRouteValues())</li>    
+        </ul>
+    </div>
+}

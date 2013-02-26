@@ -1,0 +1,105 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Search Demo</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/core.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span6">
+                <h1>Twitter Search Demo</h1>
+            </div>
+        </div>
+        <div class="container" data-bind="with: criteria">
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="span4 pull-left">
+                    <div class="btn-group" data-toggle="buttons-radio" data-bind="radio: searchType" >
+                        <button type="button" class="btn btn-success" value="#" title="hastag">#</button>
+                        <button type="button" class="btn btn-success active" value="@" title="user">@</button>
+                        <button type="button" class="btn btn-success" value="text" title="full text">text</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="span4 pull-left">
+                    <div class="btn-group" data-toggle="buttons-radio" data-bind="radio: resultType" >
+                        <button type="button" class="btn btn-success" value="recent">recent</button>
+                        <button type="button" class="btn btn-success active" value="popular">popular</button>
+                        <button type="button" class="btn btn-success" value="both">both</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="span4">
+                    <div class="input-append pull-left">
+                        <input type="text" style="width:400px;" data-bind="value: query, enterKeyPress: function () { $root.changePage(1) }" />
+                        <button type="button" data-bind="click: function () { $root.changePage(1) }" class="btn btn-primary" >Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination" data-bind="visible: results().length > 0">
+            <ul>
+                <li><a href="#" data-bind="visible: page() > 1, click: function () { changePage(page() - 1); }">Prev</a></li>
+                <li><a href="#" data-bind="text: page"></a></li>
+                <li><a href="#" data-bind="click: function () { changePage(page() + 1); }">Next</a></li>
+            </ul>
+        </div>
+        <div class="row well" data-bind="visible: loading" style="padding-left:50px;padding-top:50px;">
+            <img src="Content/images/ajax-loader.gif" alt="loading"/>
+        </div>
+        <div class="row well" data-bind="foreach: results, visible: results().length > 0">
+            <div class="span8">
+                <div class="row">
+                    <div class="span8">
+                        <h4><strong><a target="_blank" data-bind="text: name, attr: { href: userUrl }"></a></strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span1">
+                        <a target="_blank" data-bind="attr: { href: userUrl }" class="thumbnail">
+                            <img data-bind="attr: { src: profileUrl }" alt="profile image" />
+                        </a>
+                    </div>
+                    <div class="span7">
+                        <p data-bind="text: text"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <p>
+                            <i class="icon-calendar" title="created"></i><span title="created" data-bind="text: created"></span>
+                            | <i class="icon-share" title="retweets"></i><span title="retweets" data-bind="text: retweets"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination" data-bind="visible: results().length > 0">
+            <ul>
+                <li><a href="#" data-bind="visible: page() > 1, click: function (data, event) { search(data, event, -1) }">Prev</a></li>
+                <li><a href="#" data-bind="text: page"></a></li>
+                <li><a href="#" data-bind="click: function (data, event) { search(data, event, 1) }">Next</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/knockout-2.2.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/part2/koBindings.js"></script>
+    <script src="Scripts/part2/core2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            window.vm = new Demo.ViewModels.MainViewModel();
+            ko.applyBindings(window.vm);
+        });
+    </script>
+</body>
+</html>

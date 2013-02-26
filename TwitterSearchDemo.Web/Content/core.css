@@ -1,0 +1,11 @@
+﻿body
+{
+    background: lightskyblue url('images/clouds.png') repeat;
+}
+h1
+{
+    background: url('images/title.png') no-repeat;
+    color: transparent;
+    padding: 2px;
+    margin-left: 0;
+}
